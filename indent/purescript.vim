@@ -47,6 +47,13 @@ if !exists('g:purescript_indent_do')
   let g:purescript_indent_do = 3
 endif
 
+if !exists('g:purescript_indent_style')
+  " options:
+  " stylish (like stylish-haskell)
+  " jondentation
+  let g:purescript_indent_style = "stylish"
+fi
+
 setlocal indentexpr=GetPurescriptIndent()
 setlocal indentkeys=!^F,o,O,},=where,=in
 
@@ -86,7 +93,13 @@ function! GetPurescriptIndent()
   endif
 
   if prevline =~ '[{([][^})\]]\+$'
-    return match(prevline, '[{([]')
+    if g:purescript_indent_style == "stylish"
+      return match(prevline, '[{([]')
+    endif
+    if g:purescript_indent_style == "jondentation"
+      echo "jondentation"
+      return match(prevline, '\S') + 2
+    endif
   endif
 
   if prevline =~ '\<let\>\s\+.\+\(\<in\>\)\?\s*$'

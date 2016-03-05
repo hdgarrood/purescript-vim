@@ -52,7 +52,7 @@ if !exists('g:purescript_indent_style')
   " stylish (like stylish-haskell)
   " jondentation
   let g:purescript_indent_style = "stylish"
-fi
+endif
 
 setlocal indentexpr=GetPurescriptIndent()
 setlocal indentkeys=!^F,o,O,},=where,=in
